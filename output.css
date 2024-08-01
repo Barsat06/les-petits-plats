@@ -446,6 +446,10 @@ video {
   display: none;
 }
 
+html {
+  font-family: "Manrope", system-ui, sans-serif;
+}
+
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
@@ -554,30 +558,75 @@ video {
   --tw-contain-style:  ;
 }
 
-.bg-yellow-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(253 224 71 / var(--tw-bg-opacity));
+.absolute {
+  position: absolute;
 }
 
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
+.left-16 {
+  left: 4rem;
 }
 
-.font-bold {
-  font-weight: 700;
+.top-12 {
+  top: 3rem;
 }
 
-.underline {
-  text-decoration-line: underline;
+.flex {
+  display: flex;
 }
 
-.hover\:bg-blue-200:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(191 219 254 / var(--tw-bg-opacity));
+.h-\[667px\] {
+  height: 667px;
 }
 
-.hover\:bg-green-800:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(22 101 52 / var(--tw-bg-opacity));
+.w-\[207px\] {
+  width: 207px;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.max-w-2xl {
+  max-width: 42rem;
+}
+
+.max-w-\[66\.667\%\] {
+  max-width: 66.667%;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.bg-\[url\(\.\/public\/banner\.png\)\] {
+  background-image: url(./public/banner.png);
+}
+
+.bg-cover {
+  background-size: cover;
+}
+
+.bg-no-repeat {
+  background-repeat: no-repeat;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.font-anton {
+  font-family: Anton, system-ui, sans-serif;
+}
+
+.text-\[44px\] {
+  font-size: 44px;
+}
+
+.text-yellow {
+  --tw-text-opacity: 1;
+  color: rgb(255 209 91 / var(--tw-text-opacity));
 }
