@@ -562,24 +562,72 @@ html {
   position: absolute;
 }
 
+.relative {
+  position: relative;
+}
+
 .left-16 {
   left: 4rem;
+}
+
+.left-\[835px\] {
+  left: 835px;
+}
+
+.left-\[885\.5px\] {
+  left: 885.5px;
 }
 
 .top-12 {
   top: 3rem;
 }
 
+.top-\[-115px\] {
+  top: -115px;
+}
+
+.top-\[-65px\] {
+  top: -65px;
+}
+
+.mt-16 {
+  margin-top: 4rem;
+}
+
 .flex {
   display: flex;
+}
+
+.h-\[25px\] {
+  height: 25px;
+}
+
+.h-\[55px\] {
+  height: 55px;
 }
 
 .h-\[667px\] {
   height: 667px;
 }
 
+.h-\[75px\] {
+  height: 75px;
+}
+
 .w-\[207px\] {
   width: 207px;
+}
+
+.w-\[25px\] {
+  width: 25px;
+}
+
+.w-\[55px\] {
+  width: 55px;
+}
+
+.w-\[950px\] {
+  width: 950px;
 }
 
 .w-full {
@@ -594,12 +642,29 @@ html {
   max-width: 66.667%;
 }
 
+.flex-col {
+  flex-direction: column;
+}
+
 .items-center {
   align-items: center;
 }
 
 .justify-center {
   justify-content: center;
+}
+
+.gap-\[30px\] {
+  gap: 30px;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(27 27 27 / var(--tw-bg-opacity));
 }
 
 .bg-\[url\(\.\/public\/banner\.png\)\] {
@@ -614,6 +679,10 @@ html {
   background-repeat: no-repeat;
 }
 
+.p-9 {
+  padding: 2.25rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -622,11 +691,57 @@ html {
   font-family: Anton, system-ui, sans-serif;
 }
 
+.text-\[26px\] {
+  font-size: 26px;
+}
+
+.text-\[30px\] {
+  font-size: 30px;
+}
+
 .text-\[44px\] {
   font-size: 44px;
+}
+
+.text-lg {
+  font-size: 16px;
+}
+
+.font-normal {
+  font-weight: 400;
+}
+
+.text-grey {
+  --tw-text-opacity: 1;
+  color: rgb(122 122 122 / var(--tw-text-opacity));
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .text-yellow {
   --tw-text-opacity: 1;
   color: rgb(255 209 91 / var(--tw-text-opacity));
+}
+
+.placeholder\:text-grey::-moz-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(122 122 122 / var(--tw-text-opacity));
+}
+
+.placeholder\:text-grey::placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(122 122 122 / var(--tw-text-opacity));
+}
+
+.hover\:bg-yellow:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 209 91 / var(--tw-bg-opacity));
+}
+
+.hover\:text-white:hover {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }

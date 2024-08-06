@@ -3,10 +3,10 @@ export default {
   content: ["./src/**/*.{html,js}", "./index.html"],
   theme: {
     fontSize: {
-      sm: ["12px", "auto"],
-      base: ["14px", "auto"],
-      lg: ["16px", "auto"],
-      xl: ["18px", "auto"],
+      sm: ["12px"],
+      base: ["14px"],
+      lg: ["16px"],
+      xl: ["18px"],
     },
     fontFamily: {
       anton: ["Anton", "system-ui", "sans-serif"],
