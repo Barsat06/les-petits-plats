@@ -1,4 +1,5 @@
 import { SearchBar } from "./components/searchbar.js";
+import { getAllRecipes } from "./services/recipes.js";
 
 function displayBanner() {
   const app = document.getElementById("app");
@@ -21,9 +22,15 @@ function displayBanner() {
   app.appendChild(banner);
 }
 
-function init() {
+function displayRecipes(allRecipes) {
+  console.log(allRecipes);
+}
+
+async function init() {
   try {
     displayBanner();
+    const allRecipes = await getAllRecipes();
+    displayRecipes(allRecipes.recipes);
   } catch (error) {
     console.error(error);
   }
