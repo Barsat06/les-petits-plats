@@ -18,7 +18,11 @@ export default {
         yellow: "#FFD15B",
         black: "#1B1B1B",
         grey: "#7A7A7A",
-        "light-grey": "#C6C6C6",
+        lightGrey: "#C6C6C6",
+        bodyGrey: "#EDEDED",
+      },
+      boxShadow: {
+        cardShadow: "0 4px 34px 30px rgba(0, 0, 0, 0.04)",
       },
     },
   },
