@@ -613,6 +613,10 @@ html {
   margin-bottom: 30px;
 }
 
+.mb-\[20px\] {
+  margin-bottom: 20px;
+}
+
 .mt-16 {
   margin-top: 4rem;
 }
@@ -621,35 +625,8 @@ html {
   margin-top: 15px;
 }
 
-.mt-\[35px\] {
-  margin-top: 35px;
-}
-
-.mt-\[32px\] {
-  margin-top: 32px;
-}
-
-.mt-\[20px\] {
-  margin-top: 20px;
-}
-
-.mb-\[20px\] {
-  margin-bottom: 20px;
-}
-
-.mb-\[15px\] {
-  margin-bottom: 15px;
-}
-
 .mt-\[30px\] {
   margin-top: 30px;
-}
-
-.line-clamp-4 {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
 }
 
 .line-clamp-1 {
@@ -657,6 +634,13 @@ html {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
+}
+
+.line-clamp-4 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
 }
 
 .inline-block {
@@ -732,12 +716,12 @@ html {
   max-width: 66.667%;
 }
 
-.grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .flex-col {
@@ -756,6 +740,11 @@ html {
   gap: 30px;
 }
 
+.gap-x-\[15px\] {
+  -moz-column-gap: 15px;
+       column-gap: 15px;
+}
+
 .gap-x-\[45px\] {
   -moz-column-gap: 45px;
        column-gap: 45px;
@@ -763,44 +752,6 @@ html {
 
 .gap-y-\[65px\] {
   row-gap: 65px;
-}
-
-.gap-y-\[\] {
-  row-gap: ;
-}
-
-.gap-y-\[15px\] {
-  row-gap: 15px;
-}
-
-.gap-x-\[15px\] {
-  -moz-column-gap: 15px;
-       column-gap: 15px;
-}
-
-.gap-x-\[25px\] {
-  -moz-column-gap: 25px;
-       column-gap: 25px;
-}
-
-.gap-x-\[35px\] {
-  -moz-column-gap: 35px;
-       column-gap: 35px;
-}
-
-.gap-x-\[55px\] {
-  -moz-column-gap: 55px;
-       column-gap: 55px;
-}
-
-.gap-x-\[515px\] {
-  -moz-column-gap: 515px;
-       column-gap: 515px;
-}
-
-.gap-x-\[65px\] {
-  -moz-column-gap: 65px;
-       column-gap: 65px;
 }
 
 .rounded-\[14px\] {
@@ -840,8 +791,12 @@ html {
   background-color: rgb(255 209 91 / var(--tw-bg-opacity));
 }
 
-.bg-\[url\(\.\/public\/banner\.png\)\] {
-  background-image: url(./public/banner.png);
+.bg-\[url\(banner\.png\)\] {
+  background-image: url(banner.png);
+}
+
+.bg-\[url\(assets\/banner\.png\)\] {
+  background-image: url(assets/banner.png);
 }
 
 .bg-cover {
@@ -911,12 +866,12 @@ html {
   font-weight: 700;
 }
 
-.font-normal {
-  font-weight: 400;
-}
-
 .font-medium {
   font-weight: 500;
+}
+
+.font-normal {
+  font-weight: 400;
 }
 
 .uppercase {

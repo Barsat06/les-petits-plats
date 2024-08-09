@@ -38,7 +38,7 @@ export function RecipeCard(recipe) {
   <div class="w-[380px] h-[730px] rounded-[20px] bg-white shadow-cardShadow">
     <div class="relative">
       <img
-        src="./data/photos_recettes/${recipe.image}"
+        src="assets/photos_recettes/${recipe.image}"
         alt="${recipe.name}"
         class="h-[250px] w-[380px] object-cover rounded-t-[20px]"
       />

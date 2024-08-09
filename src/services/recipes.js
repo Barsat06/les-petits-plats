@@ -1,6 +1,6 @@
 export async function getAllRecipes() {
   try {
-    const response = await fetch("../../data/data.json");
+    const response = await fetch("data.json");
     const recipes = await response.json();
 
     return {
