@@ -570,6 +570,10 @@ html {
   left: 4rem;
 }
 
+.right-8 {
+  right: 2rem;
+}
+
 .right-\[10px\] {
   right: 10px;
 }
@@ -586,6 +590,10 @@ html {
   top: 3rem;
 }
 
+.top-2\.5 {
+  top: 0.625rem;
+}
+
 .top-\[10px\] {
   top: 10px;
 }
@@ -596,6 +604,14 @@ html {
 
 .top-\[20px\] {
   top: 20px;
+}
+
+.top-\[7\.5px\] {
+  top: 7.5px;
+}
+
+.z-10 {
+  z-index: 10;
 }
 
 .mx-\[100px\] {
@@ -613,12 +629,32 @@ html {
   margin-bottom: 30px;
 }
 
+.-mt-28 {
+  margin-top: -7rem;
+}
+
 .mb-\[20px\] {
   margin-bottom: 20px;
 }
 
+.ml-16 {
+  margin-left: 4rem;
+}
+
 .mt-16 {
   margin-top: 4rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
+.mt-\[136px\] {
+  margin-top: 136px;
 }
 
 .mt-\[15px\] {
@@ -643,6 +679,10 @@ html {
   -webkit-line-clamp: 4;
 }
 
+.block {
+  display: block;
+}
+
 .inline-block {
   display: inline-block;
 }
@@ -653,6 +693,14 @@ html {
 
 .grid {
   display: grid;
+}
+
+.hidden {
+  display: none;
+}
+
+.h-9 {
+  height: 2.25rem;
 }
 
 .h-\[250px\] {
@@ -677,6 +725,14 @@ html {
 
 .h-\[75px\] {
   height: 75px;
+}
+
+.max-h-80 {
+  max-height: 20rem;
+}
+
+.max-h-52 {
+  max-height: 13rem;
 }
 
 .w-\[207px\] {
@@ -736,8 +792,16 @@ html {
   justify-content: center;
 }
 
+.gap-4 {
+  gap: 1rem;
+}
+
 .gap-\[30px\] {
   gap: 30px;
+}
+
+.gap-\[65px\] {
+  gap: 65px;
 }
 
 .gap-x-\[15px\] {
@@ -754,12 +818,20 @@ html {
   row-gap: 65px;
 }
 
+.overflow-auto {
+  overflow: auto;
+}
+
 .rounded-\[14px\] {
   border-radius: 14px;
 }
 
 .rounded-\[20px\] {
   border-radius: 20px;
+}
+
+.rounded-sm {
+  border-radius: 0.125rem;
 }
 
 .rounded-xl {
@@ -769,6 +841,19 @@ html {
 .rounded-t-\[20px\] {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
+}
+
+.border {
+  border-width: 1px;
+}
+
+.border-solid {
+  border-style: solid;
+}
+
+.border-lightGrey {
+  --tw-border-opacity: 1;
+  border-color: rgb(198 198 198 / var(--tw-border-opacity));
 }
 
 .bg-black {
@@ -791,8 +876,8 @@ html {
   background-color: rgb(255 209 91 / var(--tw-bg-opacity));
 }
 
-.bg-\[url\(banner\.png\)\] {
-  background-image: url(banner.png);
+.bg-\[url\(assets\/banner\.png\)\] {
+  background-image: url(assets/banner.png);
 }
 
 .bg-cover {
@@ -808,6 +893,10 @@ html {
      object-fit: cover;
 }
 
+.p-4 {
+  padding: 1rem;
+}
+
 .p-9 {
   padding: 2.25rem;
 }
@@ -820,6 +909,10 @@ html {
 .py-\[10px\] {
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+.text-left {
+  text-align: left;
 }
 
 .text-center {
@@ -904,6 +997,25 @@ html {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* For IE, Edge and Firefox */
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.first-letter\:capitalize::first-letter {
+  text-transform: capitalize;
+}
+
 .placeholder\:text-grey::-moz-placeholder {
   --tw-text-opacity: 1;
   color: rgb(122 122 122 / var(--tw-text-opacity));
@@ -917,9 +1029,4 @@ html {
 .hover\:bg-yellow:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(255 209 91 / var(--tw-bg-opacity));
-}
-
-.hover\:text-white:hover {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
 }

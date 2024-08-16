@@ -10,7 +10,7 @@ export function SearchBar() {
       class="w-[950px] h-[75px] text-lg p-9 text-grey placeholder:text-grey font-normal rounded-xl"
   />
   <div class="absolute right-[10px] top-[10px] w-[55px] h-[55px] rounded-xl">
-    <button type="submit" aria-label="Rechercher" class="bg-black w-[55px] h-[55px] rounded-xl text-white text-[26px] hover:bg-yellow hover:text-white"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <button type="submit" aria-label="Rechercher" class="bg-black w-[55px] h-[55px] rounded-xl text-white text-[26px] hover:bg-yellow"><i class="fa-solid fa-magnifying-glass"></i></button>
   </div>
   `;
 
