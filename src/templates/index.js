@@ -9,7 +9,7 @@ export function PageLayout() {
     const Banner = document.createElement("div");
 
     Banner.className =
-      "bg-[url(all_assets/banner.png)] w-full h-[667px] bg-no-repeat bg-cover flex justify-center";
+      "bg-[url(/public/all_assets/banner.png)] w-full h-[667px] bg-no-repeat bg-cover flex justify-center";
 
     Banner.innerHTML = `
         <img src="all_assets/logo.svg" alt="logo" class="w-[207px] absolute top-12 left-16">

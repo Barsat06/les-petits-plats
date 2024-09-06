@@ -901,6 +901,50 @@ html {
   background-image: url(all_assets/banner.png);
 }
 
+.bg-\[url\(puall_assets\/banner\.png\)\] {
+  background-image: url(puall_assets/banner.png);
+}
+
+.bg-\[url\(publiall_assets\/banner\.png\)\] {
+  background-image: url(publiall_assets/banner.png);
+}
+
+.bg-\[url\(public\/all_assets\/banner\.png\)\] {
+  background-image: url(public/all_assets/banner.png);
+}
+
+.bg-\[url\(\/public\/all_assets\/banner\.png\)\] {
+  background-image: url(/public/all_assets/banner.png);
+}
+
+.bg-\[url\(\.\/public\/all_assets\/banner\.png\)\] {
+  background-image: url(./public/all_assets/banner.png);
+}
+
+.bg-\[url\(\.\.\/public\/all_assets\/banner\.png\)\] {
+  background-image: url(../public/all_assets/banner.png);
+}
+
+.bg-\[url\(\/\)\] {
+  background-image: url(/);
+}
+
+.bg-\[url\(\/public\)\] {
+  background-image: url(/public);
+}
+
+.bg-\[url\(\/public\/\)\] {
+  background-image: url(/public/);
+}
+
+.bg-\[url\(\/public\/all\)\] {
+  background-image: url(/public/all);
+}
+
+.bg-\[url\(\/public\/all_assets\)\] {
+  background-image: url(/public/all_assets);
+}
+
 .bg-cover {
   background-size: cover;
 }
