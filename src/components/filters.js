@@ -46,12 +46,13 @@ export function Filters(allRecipes) {
 function Filter(fillingType, fillingArray) {
   const filterList = () => {
     const List = document.createElement("div");
-    List.className = "flex flex-col mt-6 gap-4 max-h-52 overflow-auto no-scrollbar";
+    List.className = "flex flex-col mt-6 max-h-52 overflow-auto";
 
-    fillingArray.forEach((elements) => {
+    fillingArray.forEach((element) => {
       const button = document.createElement("button");
-      button.className = "text-left first-letter:capitalize";
-      button.textContent = elements;
+      button.className = "text-left first-letter:capitalize hover:bg-yellow pl-4 pr-4 pb-2 pt-2";
+      button.title = element;
+      button.textContent = element;
 
       List.appendChild(button);
     });
@@ -60,17 +61,17 @@ function Filter(fillingType, fillingArray) {
   };
 
   const FilterDOM = document.createElement("div");
-  FilterDOM.className = "bg-white rounded-xl p-4 shadow-cardShadow";
+  FilterDOM.className = "bg-white rounded-xl p-4 shadow-cardShadow w-48 relative";
   FilterDOM.innerHTML = `
-  <button class="font-medium">${fillingType} <span id="arrow" class="ml-16"><i class="fa-solid fa-angle-down"></i></span></button>
-  <div class="hidden mt-4 w-full">
-    <div class="w-full relative">
+  <button class="font-medium">${fillingType} <span id="arrow" class="absolute right-4"><i class="fa-solid fa-angle-down"></i></span></button>
+  <div class="hidden absolute z-20 bg-inherit left-0 pt-4 pb-4 rounded-b-xl">
+    <div class="relative">
       <input 
         type="text"
         name="${fillingType}"
-        class="border-solid border border-lightGrey h-9 w-full text-grey font-normal rounded-sm"
+        class="border-solid border border-lightGrey h-9 text-grey font-normal rounded-sm w-40 ml-4 mr-4"
       />
-      <div class="absolute right-[10px] top-[7.5px] rounded-xl">
+      <div class="absolute right-6 top-[7.5px] rounded-xl">
         <div type="submit" aria-label="Rechercher par ${fillingType}" class="text-grey text-base"><i class="fa-solid fa-magnifying-glass"></i></div>
       </div>
     </div>
@@ -80,11 +81,11 @@ function Filter(fillingType, fillingArray) {
 
   const filterContent = FilterDOM.lastElementChild;
   FilterDOM.firstElementChild.addEventListener("click", () => {
-    const isMenuVisible = filterContent.style.display === "block";
-    filterContent.style.display = isMenuVisible ? "none" : "block";
-    FilterDOM.querySelector("#arrow").innerHTML = isMenuVisible
+    filterContent.classList.toggle('hidden')
+
+    FilterDOM.querySelector("#arrow").innerHTML = filterContent.classList.contains('hidden')
       ? "<i class='fa-solid fa-angle-down'></i>"
-      : "<i class='fa-solid  fa-angle-up'></i>";
+      : "<i class='fa-solid  fa-angle-up'></i>"; 
   });
 
   const inputElement = FilterDOM.querySelector(
@@ -98,7 +99,7 @@ function Filter(fillingType, fillingArray) {
     if (clearButton === null) {
       const xmark = document.createElement("div");
       xmark.id = "x" + fillingType;
-      xmark.className = "text-grey absolute right-8 top-2.5 text-sm";
+      xmark.className = "text-grey absolute right-11 top-2.5 text-sm";
       xmark.role = "button";
       xmark.ariaLabel = "Effacer";
       xmark.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
