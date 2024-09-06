@@ -893,56 +893,8 @@ html {
   background-color: rgb(255 209 91 / var(--tw-bg-opacity));
 }
 
-.bg-\[url\(assets\/banner\.png\)\] {
-  background-image: url(assets/banner.png);
-}
-
-.bg-\[url\(all_assets\/banner\.png\)\] {
-  background-image: url(all_assets/banner.png);
-}
-
-.bg-\[url\(puall_assets\/banner\.png\)\] {
-  background-image: url(puall_assets/banner.png);
-}
-
-.bg-\[url\(publiall_assets\/banner\.png\)\] {
-  background-image: url(publiall_assets/banner.png);
-}
-
-.bg-\[url\(public\/all_assets\/banner\.png\)\] {
-  background-image: url(public/all_assets/banner.png);
-}
-
-.bg-\[url\(\/public\/all_assets\/banner\.png\)\] {
-  background-image: url(/public/all_assets/banner.png);
-}
-
-.bg-\[url\(\.\/public\/all_assets\/banner\.png\)\] {
-  background-image: url(./public/all_assets/banner.png);
-}
-
-.bg-\[url\(\.\.\/public\/all_assets\/banner\.png\)\] {
-  background-image: url(../public/all_assets/banner.png);
-}
-
-.bg-\[url\(\/\)\] {
-  background-image: url(/);
-}
-
-.bg-\[url\(\/public\)\] {
-  background-image: url(/public);
-}
-
-.bg-\[url\(\/public\/\)\] {
-  background-image: url(/public/);
-}
-
-.bg-\[url\(\/public\/all\)\] {
-  background-image: url(/public/all);
-}
-
-.bg-\[url\(\/public\/all_assets\)\] {
-  background-image: url(/public/all_assets);
+.bg-\[url\(\/all_assets\/banner\.png\)\] {
+  background-image: url(/all_assets/banner.png);
 }
 
 .bg-cover {
