@@ -47,8 +47,7 @@ export function research(allRecipes, searchingValue) {
   if (goodRecipes.length === 0) {
     const noResult = document.createElement("p");
     noResult.innerText = `Aucune recette ne contient '${searchingValue}' vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
-
-    noResult.className = "text-[26px] w-[685px]"
+    noResult.className = "text-[26px] w-[685px]";
 
     AllRecipes.appendChild(noResult);
   }

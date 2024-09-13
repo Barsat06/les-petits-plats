@@ -763,6 +763,10 @@ html {
   width: 55px;
 }
 
+.w-\[685px\] {
+  width: 685px;
+}
+
 .w-\[950px\] {
   width: 950px;
 }
@@ -774,18 +778,6 @@ html {
 .w-max {
   width: -moz-max-content;
   width: max-content;
-}
-
-.w-96 {
-  width: 24rem;
-}
-
-.w-\[1000px\] {
-  width: 1000px;
-}
-
-.w-\[685px\] {
-  width: 685px;
 }
 
 .max-w-2xl {
@@ -905,8 +897,8 @@ html {
   background-color: rgb(255 209 91 / var(--tw-bg-opacity));
 }
 
-.bg-\[url\(\/all_assets\/banner\.png\)\] {
-  background-image: url(/all_assets/banner.png);
+.bg-\[url\(\/all_assets\/banner\.webp\)\] {
+  background-image: url(/all_assets/banner.webp);
 }
 
 .bg-cover {
@@ -1002,10 +994,6 @@ html {
 
 .text-xl {
   font-size: 18px;
-}
-
-.text-\[24px\] {
-  font-size: 24px;
 }
 
 .font-bold {
