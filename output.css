@@ -776,6 +776,18 @@ html {
   width: max-content;
 }
 
+.w-96 {
+  width: 24rem;
+}
+
+.w-\[1000px\] {
+  width: 1000px;
+}
+
+.w-\[685px\] {
+  width: 685px;
+}
+
 .max-w-2xl {
   max-width: 42rem;
 }
@@ -992,6 +1004,10 @@ html {
   font-size: 18px;
 }
 
+.text-\[24px\] {
+  font-size: 24px;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -1036,6 +1052,10 @@ html {
   --tw-shadow: 0 4px 34px 30px rgba(0, 0, 0, 0.04);
   --tw-shadow-colored: 0 4px 34px 30px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .first-letter\:capitalize::first-letter {

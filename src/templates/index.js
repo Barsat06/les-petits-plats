@@ -5,7 +5,7 @@ import { RecipeCard } from "../components/recipeCard.js";
 export function PageLayout() {
   const app = document.getElementById("app");
 
-  const displayBanner = () => {
+  const displayBanner = (allRecipes) => {
     const Banner = document.createElement("div");
 
     Banner.className =
@@ -18,7 +18,7 @@ export function PageLayout() {
         </div>
       `;
 
-    const searchBar = SearchBar();
+    const searchBar = SearchBar(allRecipes);
     const bannerContent = Banner.querySelector("div");
     bannerContent.appendChild(searchBar);
 

@@ -6,7 +6,7 @@ async function init() {
 
   try {
     const allRecipes = await api.recipes.getAllRecipes();
-    displayBanner();
+    displayBanner(allRecipes.recipes);
     displayMain(allRecipes.recipes);
   } catch (error) {
     console.error(error);
