@@ -1,3 +1,5 @@
+import { Recipes } from "../modules/recipes.js";
+
 export function Filters(allRecipes) {
   const ingredientsFilter = () => {
     let ingredientsArray = [];
@@ -44,27 +46,37 @@ export function Filters(allRecipes) {
 }
 
 function Filter(fillingType, fillingArray) {
-  const filterList = () => {
+  const filterList = (elementArray) => {
     const List = document.createElement("div");
+    List.id = "test";
     List.className = "flex flex-col mt-6 max-h-52 overflow-auto";
 
-    fillingArray.forEach((element) => {
-      const button = document.createElement("button");
-      button.className = "text-left first-letter:capitalize hover:bg-yellow pl-4 pr-4 pb-2 pt-2";
-      button.title = element;
-      button.textContent = element;
+    const { filterByTag } = Recipes();
 
-      List.appendChild(button);
+    elementArray.forEach((element) => {
+      const elementButton = document.createElement("button");
+      elementButton.className =
+        "text-left first-letter:capitalize hover:bg-yellow pl-4 pr-4 pb-2 pt-2";
+      elementButton.title = element;
+      elementButton.textContent = element;
+
+      elementButton.addEventListener("click", () => {
+        filterByTag(element, fillingType);
+        clearInputField();
+      });
+
+      List.appendChild(elementButton);
     });
 
-    return List.outerHTML;
+    return List;
   };
 
-  const FilterDOM = document.createElement("div");
-  FilterDOM.className = "bg-white rounded-xl p-4 shadow-cardShadow w-48 relative";
-  FilterDOM.innerHTML = `
+  const filterDOM = document.createElement("div");
+  filterDOM.className =
+    "bg-white rounded-xl p-4 shadow-cardShadow w-48 relative";
+  filterDOM.innerHTML = `
   <button class="font-medium">${fillingType} <span id="arrow" class="absolute right-4"><i class="fa-solid fa-angle-down"></i></span></button>
-  <div class="hidden absolute z-20 bg-inherit left-0 pt-4 pb-4 rounded-b-xl">
+  <div id="filterList" class="hidden absolute z-20 bg-inherit left-0 pt-4 pb-4 rounded-b-xl">
     <div class="relative">
       <input 
         type="text"
@@ -75,20 +87,41 @@ function Filter(fillingType, fillingArray) {
         <div type="submit" aria-label="Rechercher par ${fillingType}" class="text-grey text-base"><i class="fa-solid fa-magnifying-glass"></i></div>
       </div>
     </div>
-    ${filterList()}
   </div>  
   `;
+  const filterContent = filterDOM.lastElementChild;
 
-  const filterContent = FilterDOM.lastElementChild;
-  FilterDOM.firstElementChild.addEventListener("click", () => {
-    filterContent.classList.toggle('hidden')
-
-    FilterDOM.querySelector("#arrow").innerHTML = filterContent.classList.contains('hidden')
-      ? "<i class='fa-solid fa-angle-down'></i>"
-      : "<i class='fa-solid  fa-angle-up'></i>"; 
+  filterContent.appendChild(filterList(fillingArray));
+  filterDOM.querySelector("input").addEventListener("input", (e) => {
+    filterContent.lastChild.remove();
+    filterContent.appendChild(filterList(filterSearchBar(e.target.value)));
   });
 
-  const inputElement = FilterDOM.querySelector(
+  const filterSearchBar = (input) => {
+    let filteredArray = [];
+
+    const normalizedInput = input.trim().toLowerCase();
+    fillingArray.forEach((element) => {
+      const normalizedElement = element.trim().toLowerCase();
+
+      if (normalizedElement.includes(normalizedInput)) {
+        filteredArray.push(normalizedElement);
+      }
+    });
+
+    return filteredArray;
+  };
+
+  filterDOM.firstElementChild.addEventListener("click", () => {
+    filterContent.classList.toggle("hidden");
+
+    filterDOM.querySelector("#arrow").innerHTML =
+      filterContent.classList.contains("hidden")
+        ? "<i class='fa-solid fa-angle-down'></i>"
+        : "<i class='fa-solid  fa-angle-up'></i>";
+  });
+
+  const inputElement = filterDOM.querySelector(
     "input[name=" + fillingType + "]"
   );
 
@@ -116,9 +149,14 @@ function Filter(fillingType, fillingArray) {
 
   const clearInputField = () => {
     inputElement.value = "";
+    filterContent.lastChild.remove();
+    filterContent.appendChild(filterList(filterSearchBar("")));
     const clearButton = document.querySelector("#x" + fillingType);
-    clearButton.remove();
+
+    if (clearButton === !null) {
+      clearButton.remove();
+    }
   };
 
-  return FilterDOM;
+  return filterDOM;
 }
