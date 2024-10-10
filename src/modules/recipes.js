@@ -1,13 +1,16 @@
 export function Recipes(originalRecipes) {
+  let tagArray = [];
+
   function filterByInput(input) {
-    if (!input.length > 2) {
+    const loweredInput = input.trim().toLowerCase();
+
+    if (loweredInput.length < 3) {
       return originalRecipes;
     }
 
-    const loweredInput = input.trim().toLowerCase();
     let filteredRecipes = [];
     let unmatchedRecipes = [];
-    let recipeIdsMatchingIngredient = [];
+    let matchingIngredientIds = [];
 
     originalRecipes.forEach((recipe) => {
       const recipeTitle = recipe.name.toLowerCase();
@@ -25,31 +28,58 @@ export function Recipes(originalRecipes) {
 
         if (ingredientName.includes(loweredInput)) {
           filteredRecipes.push(recipe);
-
-          recipeIdsMatchingIngredient.push(recipe.id);
-
+          matchingIngredientIds.push(recipe.id);
           return true;
         }
+        return false;
       });
     });
 
     unmatchedRecipes = unmatchedRecipes.filter(
-      (recipe) => !recipeIdsMatchingIngredient.includes(recipe.id)
+      (recipe) => !matchingIngredientIds.includes(recipe.id)
     );
 
     unmatchedRecipes.forEach((recipe) => {
-      const loweredDescription = recipe.description.toLowerCase();
-
-      if (loweredDescription.includes(loweredInput)) {
+      if (recipe.description.toLowerCase().includes(loweredInput)) {
         filteredRecipes.push(recipe);
       }
     });
 
     return filteredRecipes;
   }
-  function filterByTag(element, elementList) {
-    console.log(element, elementList);
+
+  function filterSearchBar(input, array) {
+    const loweredInput = input.trim().toLowerCase();
+    return array.filter((element) =>
+      element.trim().toLowerCase().includes(loweredInput)
+    );
   }
 
-  return { filterByInput, filterByTag };
+  function filterByTag(tag) {
+    const normalizedTag = tag.trim().toLowerCase();
+
+    if (!tagArray.includes(normalizedTag)) {
+      tagArray.push(normalizedTag);
+    } else {
+      tagArray = tagArray.filter((t) => t !== normalizedTag);
+    }
+
+    return filterRecipes();
+  }
+
+  function filterRecipes() {
+    return originalRecipes.filter((recipe) => {
+      const allElements = [
+        ...recipe.ingredients.map((i) => i.ingredient.toLowerCase()),
+        recipe.appliance.toLowerCase(),
+        ...recipe.ustensils.map((u) => u.toLowerCase()),
+      ];
+
+      return tagArray.every((tag) =>
+        allElements.some((element) => element.includes(tag))
+      );
+    });
+  }
+
+  return { filterByInput, filterSearchBar, filterByTag };
 }

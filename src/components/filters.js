@@ -1,4 +1,5 @@
 import { Recipes } from "../modules/recipes.js";
+import { RecipeCard } from "./recipeCard.js";
 
 export function Filters(allRecipes) {
   const ingredientsFilter = () => {
@@ -13,7 +14,7 @@ export function Filters(allRecipes) {
     const unduplicatedIngredientsArray = [...new Set(ingredientsArray)];
     unduplicatedIngredientsArray.sort((a, b) => a.localeCompare(b));
 
-    return Filter("Ingrédients", unduplicatedIngredientsArray);
+    return Filter("Ingrédients", unduplicatedIngredientsArray, allRecipes);
   };
   const appliancesFilter = () => {
     let appliancesArray = [];
@@ -25,7 +26,7 @@ export function Filters(allRecipes) {
     const unduplicatedAppliancesArray = [...new Set(appliancesArray)];
     unduplicatedAppliancesArray.sort((a, b) => a.localeCompare(b));
 
-    return Filter("Appareils", unduplicatedAppliancesArray);
+    return Filter("Appareils", unduplicatedAppliancesArray, allRecipes);
   };
   const ustensilsFilter = () => {
     let ustensilsArray = [];
@@ -39,19 +40,18 @@ export function Filters(allRecipes) {
     const unduplicatedUstensilsArray = [...new Set(ustensilsArray)];
     unduplicatedUstensilsArray.sort((a, b) => a.localeCompare(b));
 
-    return Filter("Ustensiles", unduplicatedUstensilsArray);
+    return Filter("Ustensiles", unduplicatedUstensilsArray, allRecipes);
   };
 
   return { ingredientsFilter, appliancesFilter, ustensilsFilter };
 }
 
-function Filter(fillingType, fillingArray) {
+function Filter(fillingType, fillingArray, originalRecipes) {
+  const { filterByTag, filterSearchBar } = Recipes(originalRecipes);
+
   const filterList = (elementArray) => {
     const List = document.createElement("div");
-    List.id = "test";
     List.className = "flex flex-col mt-6 max-h-52 overflow-auto";
-
-    const { filterByTag } = Recipes();
 
     elementArray.forEach((element) => {
       const elementButton = document.createElement("button");
@@ -61,7 +61,24 @@ function Filter(fillingType, fillingArray) {
       elementButton.textContent = element;
 
       elementButton.addEventListener("click", () => {
-        filterByTag(element, fillingType);
+        const recipes = filterByTag(element);
+
+        const main = document.getElementById("app");
+        const recipesDOM = main.lastElementChild;
+        recipesDOM.innerHTML = "";
+
+        if (recipes.length === 0) {
+          const noResult = document.createElement("p");
+          noResult.innerText = `Aucune recette ne contient vos tags vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
+          noResult.className = "text-[26px] w-[685px]";
+
+          recipesDOM.appendChild(noResult);
+        }
+
+        recipes.forEach((recipe) => {
+          recipesDOM.appendChild(RecipeCard(recipe));
+        });
+
         clearInputField();
       });
 
@@ -91,39 +108,26 @@ function Filter(fillingType, fillingArray) {
   `;
   const filterContent = filterDOM.lastElementChild;
 
+  const inputElement = filterDOM.querySelector(
+    "input[name=" + fillingType + "]"
+  );
+
   filterContent.appendChild(filterList(fillingArray));
   filterDOM.querySelector("input").addEventListener("input", (e) => {
     filterContent.lastChild.remove();
-    filterContent.appendChild(filterList(filterSearchBar(e.target.value)));
+    filterContent.appendChild(
+      filterList(filterSearchBar(e.target.value, fillingArray))
+    );
   });
-
-  const filterSearchBar = (input) => {
-    let filteredArray = [];
-
-    const normalizedInput = input.trim().toLowerCase();
-    fillingArray.forEach((element) => {
-      const normalizedElement = element.trim().toLowerCase();
-
-      if (normalizedElement.includes(normalizedInput)) {
-        filteredArray.push(normalizedElement);
-      }
-    });
-
-    return filteredArray;
-  };
 
   filterDOM.firstElementChild.addEventListener("click", () => {
     filterContent.classList.toggle("hidden");
-
+    inputElement.focus();
     filterDOM.querySelector("#arrow").innerHTML =
       filterContent.classList.contains("hidden")
         ? "<i class='fa-solid fa-angle-down'></i>"
         : "<i class='fa-solid  fa-angle-up'></i>";
   });
-
-  const inputElement = filterDOM.querySelector(
-    "input[name=" + fillingType + "]"
-  );
 
   inputElement.addEventListener("input", (event) => {
     const inputValue = event.target.value;
@@ -150,12 +154,15 @@ function Filter(fillingType, fillingArray) {
   const clearInputField = () => {
     inputElement.value = "";
     filterContent.lastChild.remove();
-    filterContent.appendChild(filterList(filterSearchBar("")));
+
+    filterContent.appendChild(filterList(filterSearchBar("", fillingArray)));
     const clearButton = document.querySelector("#x" + fillingType);
 
-    if (clearButton === !null) {
+    if (clearButton !== null) {
       clearButton.remove();
     }
+
+    inputElement.focus();
   };
 
   return filterDOM;
