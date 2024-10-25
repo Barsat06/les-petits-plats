@@ -1,10 +1,8 @@
-import { Recipes, recipesState } from "../modules/recipes.js";
+import { Recipes } from "../modules/recipes.js";
 import { RecipesList } from "./recipesList.js";
 import { ReloadFilters } from "../utils/reloadFilters.js";
 
 export function SearchBar() {
-  const { filterByInput } = Recipes();
-
   const searchBar = document.createElement("form");
   searchBar.className = "h-[75px] relative";
 
@@ -30,7 +28,7 @@ export function SearchBar() {
     const inputValue = event.target.value;
     const clearButton = document.querySelector("#x");
 
-    const filteredRecipes = filterByInput(inputValue);
+    const filteredRecipes = Recipes.filterByInput(inputValue);
 
     RecipesList(filteredRecipes, inputValue);
 
@@ -45,7 +43,7 @@ export function SearchBar() {
       xmark.ariaLabel = "Effacer";
       xmark.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
       xmark.addEventListener("click", () => {
-        RecipesList(recipesState.state.getFilteredRecipes(), inputValue);
+        RecipesList(Recipes.getFilteredRecipes(), inputValue);
         clearInputField();
       });
 

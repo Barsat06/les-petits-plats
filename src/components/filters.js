@@ -1,4 +1,4 @@
-import { Recipes, recipesState } from "../modules/recipes.js";
+import { Recipes } from "../modules/recipes.js";
 import { RecipesList } from "./recipesList.js";
 import { Tags } from "./tags.js";
 import { ReloadFilters } from "../utils/reloadFilters.js";
@@ -8,7 +8,9 @@ export function Filters() {
   let appliancesArray = [];
   let ustensilsArray = [];
 
-  const filteredRecipes = recipesState.state.getFilteredRecipes()
+  const filteredRecipes = Recipes.getFilteredRecipes();
+
+  console.log(filteredRecipes);
 
   filteredRecipes.forEach((recipe) => {
     recipe.ingredients.forEach((ingredient) => {
@@ -38,21 +40,15 @@ export function Filters() {
   FiltersArea.className = "flex gap-[65px]";
 
   const Ingredients = document.createElement("div");
-  Ingredients.appendChild(
-    Filter("Ingrédients", unduplicatedIngredientsArray)
-  );
+  Ingredients.appendChild(Filter("Ingrédients", unduplicatedIngredientsArray));
   FiltersArea.appendChild(Ingredients);
 
   const Appliances = document.createElement("div");
-  Appliances.appendChild(
-    Filter("Appareils", unduplicatedAppliancesArray)
-  );
+  Appliances.appendChild(Filter("Appareils", unduplicatedAppliancesArray));
   FiltersArea.appendChild(Appliances);
 
   const Ustensils = document.createElement("div");
-  Ustensils.appendChild(
-    Filter("Ustensiles", unduplicatedUstensilsArray)
-  );
+  Ustensils.appendChild(Filter("Ustensiles", unduplicatedUstensilsArray));
   FiltersArea.appendChild(Ustensils);
 
   FiltersDiv.appendChild(FiltersArea);
@@ -61,10 +57,6 @@ export function Filters() {
 }
 
 function Filter(filterName, filterData) {
-  const { filterByTag, filterSearchBar } = Recipes();
-
-  let selectedTags = [];
-
   const filterList = (elementArray) => {
     const List = document.createElement("div");
     List.className = "flex flex-col mt-6 max-h-52 overflow-auto";
@@ -77,9 +69,7 @@ function Filter(filterName, filterData) {
       elementButton.textContent = element;
 
       elementButton.addEventListener("click", () => {
-        const filterByTagResult = filterByTag(element);
-        const recipes = filterByTagResult[0];
-        selectedTags = filterByTagResult[1];
+        const [recipes, selectedTags] = Recipes.filterByTag(element);
 
         RecipesList(recipes, "vos tags");
 
@@ -124,7 +114,7 @@ function Filter(filterName, filterData) {
   filterDOM.querySelector("input").addEventListener("input", (e) => {
     filterContent.lastChild.remove();
     filterContent.appendChild(
-      filterList(filterSearchBar(e.target.value, filterData))
+      filterList(Recipes.filterSearchBar(e.target.value, filterData))
     );
   });
 
@@ -163,7 +153,9 @@ function Filter(filterName, filterData) {
     inputElement.value = "";
     filterContent.lastChild.remove();
 
-    filterContent.appendChild(filterList(filterSearchBar("", filterData)));
+    filterContent.appendChild(
+      filterList(Recipes.filterSearchBar("", filterData))
+    );
     const clearButton = document.querySelector("#x" + filterName);
 
     if (clearButton !== null) {

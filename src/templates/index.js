@@ -4,7 +4,7 @@ import { RecipeCard } from "../components/recipeCard.js";
 import { Recipes } from "../modules/recipes.js";
 
 export function PageLayout(recipes) {
-  Recipes(recipes);
+  Recipes.setRecipes(recipes);
 
   const app = document.getElementById("app");
 

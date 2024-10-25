@@ -2,7 +2,6 @@ import { Recipes } from "../modules/recipes.js";
 import { RecipesList } from "./recipesList.js";
 
 export function Tags(tagsList) {
-  const { filterByTag } = Recipes();
 
   const filtersDiv = document.getElementById("filtersDiv");
   let tagsArea = document.getElementById("tagsArea");
@@ -26,7 +25,7 @@ export function Tags(tagsList) {
     tagDiv.lastElementChild.addEventListener("click", () => {
       tagDiv.remove();
 
-      RecipesList(filterByTag(tag)[0], "vos tags");
+      RecipesList(Recipes.filterByTag(tag)[0], "vos tags");
     });
 
     tagsArea.appendChild(tagDiv);

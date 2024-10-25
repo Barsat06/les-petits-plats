@@ -2,28 +2,23 @@
 if filteredRecipes vide faire sur OGR sinon sur filteredRecipes
 */
 
-let tagArray = [];
-let originalRecipes = [];
-let filteredRecipes = [];
+export const Recipes = {
+  tagArray: [],
+  originalRecipes: [],
+  filteredRecipes: [],
 
-export function Recipes(recipes) {
-  if (originalRecipes.length === 0) {
-    originalRecipes = recipes;
-    filteredRecipes = recipes;
-  }
-
-  function filterByInput(input) {
+  filterByInput(input) {
     const loweredInput = input.trim().toLowerCase();
 
     if (loweredInput.length < 3) {
-      return originalRecipes;
+      return this.originalRecipes;
     }
 
     let filteredRecipes = [];
     let unmatchedRecipes = [];
     let matchingIngredientIds = [];
 
-    originalRecipes.forEach((recipe) => {
+    this.originalRecipes.forEach((recipe) => {
       const recipeTitle = recipe.name.toLowerCase();
 
       if (recipeTitle.includes(loweredInput)) {
@@ -56,57 +51,49 @@ export function Recipes(recipes) {
       }
     });
 
+    this.filteredRecipes = filteredRecipes;
     return filteredRecipes;
-  }
+  },
 
-  function filterSearchBar(input, array) {
+  filterSearchBar(input, array) {
     const loweredInput = input.trim().toLowerCase();
     return array.filter((element) =>
       element.trim().toLowerCase().includes(loweredInput)
     );
-  }
+  },
 
-  function filterByTag(tag) {
+  filterByTag(tag) {
     const normalizedTag = tag.trim().toLowerCase();
 
-    if (!tagArray.includes(normalizedTag)) {
-      tagArray.push(normalizedTag);
+    if (!this.tagArray.includes(normalizedTag)) {
+      this.tagArray.push(normalizedTag);
     } else {
-      tagArray = tagArray.filter((t) => t !== normalizedTag);
+      this.tagArray = this.tagArray.filter((t) => t !== normalizedTag);
     }
 
-    let filteredRecipes = filterRecipes();
-
-    return [filteredRecipes, tagArray];
-  }
-
-  function filterRecipes() {
-    return originalRecipes.filter((recipe) => {
+    this.filteredRecipes = this.originalRecipes.filter((recipe) => {
       const allElements = [
         ...recipe.ingredients.map((i) => i.ingredient.toLowerCase()),
         recipe.appliance.toLowerCase(),
         ...recipe.ustensils.map((u) => u.toLowerCase()),
       ];
 
-      return tagArray.every((tag) =>
+      return this.tagArray.every((tag) =>
         allElements.some((element) => element.includes(tag))
       );
     });
-  }
 
-  return { filterByInput, filterSearchBar, filterByTag };
-}
+    return [this.filteredRecipes, this.tagArray];
+  },
 
-function getOriginalRecipes() {
-  return originalRecipes;
-}
-function getFilteredRecipes() {
-  return filteredRecipes;
-}
-
-export const recipesState = {
-  state: {
-    getOriginalRecipes,
-    getFilteredRecipes,
+  getOriginalRecipes() {
+    return this.originalRecipes;
+  },
+  getFilteredRecipes() {
+    return this.filteredRecipes;
+  },
+  setRecipes(recipes) {
+    this.originalRecipes = recipes;
+    this.filteredRecipes = recipes;
   },
 };
