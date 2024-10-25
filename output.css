@@ -636,6 +636,11 @@ html {
   margin-right: 25px;
 }
 
+.my-5 {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
 .my-\[30px\] {
   margin-top: 30px;
   margin-bottom: 30px;
@@ -647,6 +652,10 @@ html {
 
 .ml-4 {
   margin-left: 1rem;
+}
+
+.mr-14 {
+  margin-right: 3.5rem;
 }
 
 .mr-4 {
@@ -808,6 +817,10 @@ html {
   justify-content: center;
 }
 
+.gap-10 {
+  gap: 2.5rem;
+}
+
 .gap-\[30px\] {
   gap: 30px;
 }
@@ -832,6 +845,10 @@ html {
 
 .overflow-auto {
   overflow: auto;
+}
+
+.rounded-\[10px\] {
+  border-radius: 10px;
 }
 
 .rounded-\[14px\] {
@@ -922,9 +939,19 @@ html {
   padding: 2.25rem;
 }
 
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 .px-\[15px\] {
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
 }
 
 .py-\[10px\] {

@@ -1,5 +1,16 @@
-export function Recipes(originalRecipes) {
-  let tagArray = [];
+/*
+if filteredRecipes vide faire sur OGR sinon sur filteredRecipes
+*/
+
+let tagArray = [];
+let originalRecipes = [];
+let filteredRecipes = [];
+
+export function Recipes(recipes) {
+  if (originalRecipes.length === 0) {
+    originalRecipes = recipes;
+    filteredRecipes = recipes;
+  }
 
   function filterByInput(input) {
     const loweredInput = input.trim().toLowerCase();
@@ -64,7 +75,9 @@ export function Recipes(originalRecipes) {
       tagArray = tagArray.filter((t) => t !== normalizedTag);
     }
 
-    return filterRecipes();
+    let filteredRecipes = filterRecipes();
+
+    return [filteredRecipes, tagArray];
   }
 
   function filterRecipes() {
@@ -83,3 +96,17 @@ export function Recipes(originalRecipes) {
 
   return { filterByInput, filterSearchBar, filterByTag };
 }
+
+function getOriginalRecipes() {
+  return originalRecipes;
+}
+function getFilteredRecipes() {
+  return filteredRecipes;
+}
+
+export const recipesState = {
+  state: {
+    getOriginalRecipes,
+    getFilteredRecipes,
+  },
+};

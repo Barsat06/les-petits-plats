@@ -1,11 +1,14 @@
 import { SearchBar } from "../components/searchbar.js";
 import { Filters } from "../components/filters.js";
 import { RecipeCard } from "../components/recipeCard.js";
+import { Recipes } from "../modules/recipes.js";
 
-export function PageLayout() {
+export function PageLayout(recipes) {
+  Recipes(recipes);
+
   const app = document.getElementById("app");
 
-  const displayBanner = (allRecipes) => {
+  const displayBanner = () => {
     const Banner = document.createElement("div");
 
     Banner.className =
@@ -18,35 +21,17 @@ export function PageLayout() {
         </div>
       `;
 
-    const searchBar = SearchBar(allRecipes);
+    const searchBar = SearchBar();
     const bannerContent = Banner.querySelector("div");
     bannerContent.appendChild(searchBar);
 
     app.appendChild(Banner);
   };
 
-  const displayMain = (allRecipes) => {
+  const displayMain = () => {
     /* *****************Filters***************** */
 
-    const { ingredientsFilter, appliancesFilter, ustensilsFilter } =
-      Filters(allRecipes);
-
-    const FiltersArea = document.createElement("div");
-    FiltersArea.className = "flex gap-[65px] mt-5 mx-[100px]";
-
-    const Ingredients = document.createElement("div");
-    Ingredients.appendChild(ingredientsFilter());
-    FiltersArea.appendChild(Ingredients);
-
-    const Appliances = document.createElement("div");
-    Appliances.appendChild(appliancesFilter());
-    FiltersArea.appendChild(Appliances);
-
-    const Ustensils = document.createElement("div");
-    Ustensils.appendChild(ustensilsFilter());
-    FiltersArea.appendChild(Ustensils);
-
-    app.appendChild(FiltersArea);
+    app.appendChild(Filters());
 
     /* *****************Recipes***************** */
 
@@ -54,7 +39,7 @@ export function PageLayout() {
     AllRecipes.className =
       "gap-x-[45px] gap-y-[65px] grid grid-cols-3 mt-14 mx-[100px]";
 
-    allRecipes.forEach((recipe) => {
+    recipes.forEach((recipe) => {
       AllRecipes.appendChild(RecipeCard(recipe));
     });
 

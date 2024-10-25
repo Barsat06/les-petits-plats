@@ -1,8 +1,9 @@
-import { Recipes } from "../modules/recipes.js";
-import { RecipeCard } from "./recipeCard.js";
+import { Recipes, recipesState } from "../modules/recipes.js";
+import { RecipesList } from "./recipesList.js";
+import { ReloadFilters } from "../utils/reloadFilters.js";
 
-export function SearchBar(originalRecipes) {
-  const { filterByInput } = Recipes(originalRecipes);
+export function SearchBar() {
+  const { filterByInput } = Recipes();
 
   const searchBar = document.createElement("form");
   searchBar.className = "h-[75px] relative";
@@ -29,9 +30,11 @@ export function SearchBar(originalRecipes) {
     const inputValue = event.target.value;
     const clearButton = document.querySelector("#x");
 
-    const filterdRecipes = filterByInput(inputValue);
+    const filteredRecipes = filterByInput(inputValue);
 
-    clearAndCreateRecipes(filterdRecipes, inputValue);
+    RecipesList(filteredRecipes, inputValue);
+
+    ReloadFilters(filteredRecipes);
 
     if (clearButton === null) {
       const xmark = document.createElement("div");
@@ -42,7 +45,7 @@ export function SearchBar(originalRecipes) {
       xmark.ariaLabel = "Effacer";
       xmark.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
       xmark.addEventListener("click", () => {
-        clearAndCreateRecipes(originalRecipes, inputValue);
+        RecipesList(recipesState.state.getFilteredRecipes(), inputValue);
         clearInputField();
       });
 
@@ -52,24 +55,6 @@ export function SearchBar(originalRecipes) {
       clearInputField();
     }
   });
-
-  const clearAndCreateRecipes = (recipes, inputValue) => {
-    const main = document.getElementById("app");
-    const recipesDOM = main.lastElementChild;
-    recipesDOM.innerHTML = "";
-
-    if (recipes.length === 0) {
-      const noResult = document.createElement("p");
-      noResult.innerText = `Aucune recette ne contient '${inputValue}' vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
-      noResult.className = "text-[26px] w-[685px]";
-
-      recipesDOM.appendChild(noResult);
-    }
-
-    recipes.forEach((recipe) => {
-      recipesDOM.appendChild(RecipeCard(recipe));
-    });
-  };
 
   const clearInputField = () => {
     const inputElement = document.querySelector('input[name="search"]');

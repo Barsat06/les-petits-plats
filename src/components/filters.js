@@ -1,53 +1,69 @@
-import { Recipes } from "../modules/recipes.js";
-import { RecipeCard } from "./recipeCard.js";
+import { Recipes, recipesState } from "../modules/recipes.js";
+import { RecipesList } from "./recipesList.js";
+import { Tags } from "./tags.js";
+import { ReloadFilters } from "../utils/reloadFilters.js";
 
-export function Filters(allRecipes) {
-  const ingredientsFilter = () => {
-    let ingredientsArray = [];
+export function Filters() {
+  let ingredientsArray = [];
+  let appliancesArray = [];
+  let ustensilsArray = [];
 
-    allRecipes.forEach((recipe) => {
-      recipe.ingredients.forEach((ingredient) => {
-        ingredientsArray.push(ingredient.ingredient);
-      });
+  const filteredRecipes = recipesState.state.getFilteredRecipes()
+
+  filteredRecipes.forEach((recipe) => {
+    recipe.ingredients.forEach((ingredient) => {
+      ingredientsArray.push(ingredient.ingredient);
     });
-
-    const unduplicatedIngredientsArray = [...new Set(ingredientsArray)];
-    unduplicatedIngredientsArray.sort((a, b) => a.localeCompare(b));
-
-    return Filter("Ingrédients", unduplicatedIngredientsArray, allRecipes);
-  };
-  const appliancesFilter = () => {
-    let appliancesArray = [];
-
-    allRecipes.forEach((recipe) => {
-      appliancesArray.push(recipe.appliance);
+    appliancesArray.push(recipe.appliance);
+    recipe.ustensils.forEach((ustensil) => {
+      ustensilsArray.push(ustensil);
     });
+  });
 
-    const unduplicatedAppliancesArray = [...new Set(appliancesArray)];
-    unduplicatedAppliancesArray.sort((a, b) => a.localeCompare(b));
+  const unduplicatedIngredientsArray = [...new Set(ingredientsArray)];
+  unduplicatedIngredientsArray.sort((a, b) => a.localeCompare(b));
 
-    return Filter("Appareils", unduplicatedAppliancesArray, allRecipes);
-  };
-  const ustensilsFilter = () => {
-    let ustensilsArray = [];
+  const unduplicatedAppliancesArray = [...new Set(appliancesArray)];
+  unduplicatedAppliancesArray.sort((a, b) => a.localeCompare(b));
 
-    allRecipes.forEach((recipe) => {
-      recipe.ustensils.forEach((ustensil) => {
-        ustensilsArray.push(ustensil);
-      });
-    });
+  const unduplicatedUstensilsArray = [...new Set(ustensilsArray)];
+  unduplicatedUstensilsArray.sort((a, b) => a.localeCompare(b));
 
-    const unduplicatedUstensilsArray = [...new Set(ustensilsArray)];
-    unduplicatedUstensilsArray.sort((a, b) => a.localeCompare(b));
+  const FiltersDiv = document.createElement("div");
+  FiltersDiv.id = "filtersDiv";
+  FiltersDiv.className = "mt-5 mx-[100px]";
 
-    return Filter("Ustensiles", unduplicatedUstensilsArray, allRecipes);
-  };
+  const FiltersArea = document.createElement("div");
+  FiltersArea.id = "filtersArea";
+  FiltersArea.className = "flex gap-[65px]";
 
-  return { ingredientsFilter, appliancesFilter, ustensilsFilter };
+  const Ingredients = document.createElement("div");
+  Ingredients.appendChild(
+    Filter("Ingrédients", unduplicatedIngredientsArray)
+  );
+  FiltersArea.appendChild(Ingredients);
+
+  const Appliances = document.createElement("div");
+  Appliances.appendChild(
+    Filter("Appareils", unduplicatedAppliancesArray)
+  );
+  FiltersArea.appendChild(Appliances);
+
+  const Ustensils = document.createElement("div");
+  Ustensils.appendChild(
+    Filter("Ustensiles", unduplicatedUstensilsArray)
+  );
+  FiltersArea.appendChild(Ustensils);
+
+  FiltersDiv.appendChild(FiltersArea);
+
+  return FiltersDiv;
 }
 
-function Filter(fillingType, fillingArray, originalRecipes) {
-  const { filterByTag, filterSearchBar } = Recipes(originalRecipes);
+function Filter(filterName, filterData) {
+  const { filterByTag, filterSearchBar } = Recipes();
+
+  let selectedTags = [];
 
   const filterList = (elementArray) => {
     const List = document.createElement("div");
@@ -56,28 +72,20 @@ function Filter(fillingType, fillingArray, originalRecipes) {
     elementArray.forEach((element) => {
       const elementButton = document.createElement("button");
       elementButton.className =
-        "text-left first-letter:capitalize hover:bg-yellow pl-4 pr-4 pb-2 pt-2";
+        "text-left first-letter:capitalize hover:bg-yellow text-base pl-4 pr-4 pb-2 pt-2";
       elementButton.title = element;
       elementButton.textContent = element;
 
       elementButton.addEventListener("click", () => {
-        const recipes = filterByTag(element);
+        const filterByTagResult = filterByTag(element);
+        const recipes = filterByTagResult[0];
+        selectedTags = filterByTagResult[1];
 
-        const main = document.getElementById("app");
-        const recipesDOM = main.lastElementChild;
-        recipesDOM.innerHTML = "";
+        RecipesList(recipes, "vos tags");
 
-        if (recipes.length === 0) {
-          const noResult = document.createElement("p");
-          noResult.innerText = `Aucune recette ne contient vos tags vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
-          noResult.className = "text-[26px] w-[685px]";
+        ReloadFilters(recipes);
 
-          recipesDOM.appendChild(noResult);
-        }
-
-        recipes.forEach((recipe) => {
-          recipesDOM.appendChild(RecipeCard(recipe));
-        });
+        Tags(selectedTags);
 
         clearInputField();
       });
@@ -92,16 +100,16 @@ function Filter(fillingType, fillingArray, originalRecipes) {
   filterDOM.className =
     "bg-white rounded-xl p-4 shadow-cardShadow w-48 relative";
   filterDOM.innerHTML = `
-  <button class="font-medium">${fillingType} <span id="arrow" class="absolute right-4"><i class="fa-solid fa-angle-down"></i></span></button>
+  <button class="font-medium">${filterName} <span id="arrow" class="absolute right-4"><i class="fa-solid fa-angle-down"></i></span></button>
   <div id="filterList" class="hidden absolute z-20 bg-inherit left-0 pt-4 pb-4 rounded-b-xl">
     <div class="relative">
       <input 
         type="text"
-        name="${fillingType}"
+        name="${filterName}"
         class="border-solid border border-lightGrey h-9 text-grey font-normal rounded-sm w-40 ml-4 mr-4"
       />
       <div class="absolute right-6 top-[7.5px] rounded-xl">
-        <div type="submit" aria-label="Rechercher par ${fillingType}" class="text-grey text-base"><i class="fa-solid fa-magnifying-glass"></i></div>
+        <div type="submit" aria-label="Rechercher par ${filterName}" class="text-grey text-base"><i class="fa-solid fa-magnifying-glass"></i></div>
       </div>
     </div>
   </div>  
@@ -109,14 +117,14 @@ function Filter(fillingType, fillingArray, originalRecipes) {
   const filterContent = filterDOM.lastElementChild;
 
   const inputElement = filterDOM.querySelector(
-    "input[name=" + fillingType + "]"
+    "input[name=" + filterName + "]"
   );
 
-  filterContent.appendChild(filterList(fillingArray));
+  filterContent.appendChild(filterList(filterData));
   filterDOM.querySelector("input").addEventListener("input", (e) => {
     filterContent.lastChild.remove();
     filterContent.appendChild(
-      filterList(filterSearchBar(e.target.value, fillingArray))
+      filterList(filterSearchBar(e.target.value, filterData))
     );
   });
 
@@ -131,11 +139,11 @@ function Filter(fillingType, fillingArray, originalRecipes) {
 
   inputElement.addEventListener("input", (event) => {
     const inputValue = event.target.value;
-    const clearButton = document.querySelector("#x" + fillingType);
+    const clearButton = document.querySelector("#x" + filterName);
 
     if (clearButton === null) {
       const xmark = document.createElement("div");
-      xmark.id = "x" + fillingType;
+      xmark.id = "x" + filterName;
       xmark.className = "text-grey absolute right-11 top-2.5 text-sm";
       xmark.role = "button";
       xmark.ariaLabel = "Effacer";
@@ -155,8 +163,8 @@ function Filter(fillingType, fillingArray, originalRecipes) {
     inputElement.value = "";
     filterContent.lastChild.remove();
 
-    filterContent.appendChild(filterList(filterSearchBar("", fillingArray)));
-    const clearButton = document.querySelector("#x" + fillingType);
+    filterContent.appendChild(filterList(filterSearchBar("", filterData)));
+    const clearButton = document.querySelector("#x" + filterName);
 
     if (clearButton !== null) {
       clearButton.remove();
