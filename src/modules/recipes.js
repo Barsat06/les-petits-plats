@@ -71,6 +71,7 @@ export const Recipes = {
       this.tagArray = this.tagArray.filter((t) => t !== normalizedTag);
     }
 
+    //verfier filteredrecipes
     this.filteredRecipes = this.originalRecipes.filter((recipe) => {
       const allElements = [
         ...recipe.ingredients.map((i) => i.ingredient.toLowerCase()),
@@ -83,7 +84,7 @@ export const Recipes = {
       );
     });
 
-    return [this.filteredRecipes, this.tagArray];
+    return true;
   },
 
   getOriginalRecipes() {
@@ -95,5 +96,8 @@ export const Recipes = {
   setRecipes(recipes) {
     this.originalRecipes = recipes;
     this.filteredRecipes = recipes;
+  },
+  getTags() {
+    return this.tagArray;
   },
 };

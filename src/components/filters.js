@@ -69,13 +69,13 @@ function Filter(filterName, filterData) {
       elementButton.textContent = element;
 
       elementButton.addEventListener("click", () => {
-        const [recipes, selectedTags] = Recipes.filterByTag(element);
+        Recipes.filterByTag(element);
 
-        RecipesList(recipes, "vos tags");
+        RecipesList(Recipes.getFilteredRecipes(), "vos tags");
 
-        ReloadFilters(recipes);
+        ReloadFilters(Recipes.getFilteredRecipes());
 
-        Tags(selectedTags);
+        Tags(Recipes.getTags());
 
         clearInputField();
       });

@@ -24,8 +24,8 @@ export function Tags(tagsList) {
 
     tagDiv.lastElementChild.addEventListener("click", () => {
       tagDiv.remove();
-
-      RecipesList(Recipes.filterByTag(tag)[0], "vos tags");
+      Recipes.filterByTag(tag)
+      RecipesList(Recipes.getFilteredRecipes(), "vos tags");
     });
 
     tagsArea.appendChild(tagDiv);
