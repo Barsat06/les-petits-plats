@@ -25,7 +25,7 @@ export function SearchBar() {
   });
 
   inputElement.addEventListener("input", (event) => {
-    const inputValue = event.target.value;
+    let inputValue = event.target.value;
     const clearButton = document.querySelector("#x");
 
     const filteredRecipes = Recipes.filterByInput(inputValue);
@@ -43,6 +43,8 @@ export function SearchBar() {
       xmark.ariaLabel = "Effacer";
       xmark.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
       xmark.addEventListener("click", () => {
+        inputValue = "";
+        Recipes.filterByInput(inputValue);
         RecipesList(Recipes.getFilteredRecipes(), inputValue);
         clearInputField();
       });

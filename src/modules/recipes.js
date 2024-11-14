@@ -1,24 +1,39 @@
-/*
-if filteredRecipes vide faire sur OGR sinon sur filteredRecipes
-*/
+export class Recipes {
+  static tagArray = [];
+  static originalRecipes = [];
+  static filteredRecipes = [];
+  static oldInput = "";
 
-export const Recipes = {
-  tagArray: [],
-  originalRecipes: [],
-  filteredRecipes: [],
-
-  filterByInput(input) {
+  static filterByInput(input) {
+    let recipesToFilter = this.#getRecipesToFilter();
     const loweredInput = input.trim().toLowerCase();
 
+    if (this.oldInput.length === 0) {
+      this.oldInput = loweredInput;
+    }
+    if (this.oldInput.length > loweredInput.length) {
+      if (this.tagArray.length === 0) {
+        this.filteredRecipes = this.originalRecipes;
+      }
+      recipesToFilter = this.originalRecipes;
+    }
+    if (this.oldInput.length === loweredInput.length) {
+      recipesToFilter = this.originalRecipes;
+    }
+
+    this.oldInput = loweredInput;
     if (loweredInput.length < 3) {
-      return this.originalRecipes;
+      if (this.tagArray.length === 0) {
+        return this.originalRecipes;
+      } else {
+        return recipesToFilter;
+      }
     }
 
     let filteredRecipes = [];
     let unmatchedRecipes = [];
     let matchingIngredientIds = [];
-
-    this.originalRecipes.forEach((recipe) => {
+    recipesToFilter.forEach((recipe) => {
       const recipeTitle = recipe.name.toLowerCase();
 
       if (recipeTitle.includes(loweredInput)) {
@@ -53,26 +68,33 @@ export const Recipes = {
 
     this.filteredRecipes = filteredRecipes;
     return filteredRecipes;
-  },
+  }
 
-  filterSearchBar(input, array) {
+  static filterSearchBar(input, array) {
     const loweredInput = input.trim().toLowerCase();
     return array.filter((element) =>
       element.trim().toLowerCase().includes(loweredInput)
     );
-  },
+  }
 
-  filterByTag(tag) {
+  static filterByTag(tag) {
+    let recipesToFilter = this.#getRecipesToFilter();
+
     const normalizedTag = tag.trim().toLowerCase();
 
     if (!this.tagArray.includes(normalizedTag)) {
       this.tagArray.push(normalizedTag);
     } else {
       this.tagArray = this.tagArray.filter((t) => t !== normalizedTag);
+      if (this.oldInput.length > 2) {
+        this.filterByInput(this.oldInput);
+        recipesToFilter = this.filteredRecipes;
+      } else {
+        recipesToFilter = this.originalRecipes;
+      }
     }
 
-    //verfier filteredrecipes
-    this.filteredRecipes = this.originalRecipes.filter((recipe) => {
+    this.filteredRecipes = recipesToFilter.filter((recipe) => {
       const allElements = [
         ...recipe.ingredients.map((i) => i.ingredient.toLowerCase()),
         recipe.appliance.toLowerCase(),
@@ -83,21 +105,28 @@ export const Recipes = {
         allElements.some((element) => element.includes(tag))
       );
     });
+  }
 
-    return true;
-  },
+  static #getRecipesToFilter() {
+    return this.filteredRecipes.length === 0
+      ? this.originalRecipes
+      : this.filteredRecipes;
+  }
 
-  getOriginalRecipes() {
+  static getOriginalRecipes() {
     return this.originalRecipes;
-  },
-  getFilteredRecipes() {
+  }
+
+  static getFilteredRecipes() {
     return this.filteredRecipes;
-  },
-  setRecipes(recipes) {
+  }
+
+  static setRecipes(recipes) {
     this.originalRecipes = recipes;
     this.filteredRecipes = recipes;
-  },
-  getTags() {
+  }
+
+  static getTags() {
     return this.tagArray;
-  },
-};
+  }
+}

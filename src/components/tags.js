@@ -1,5 +1,6 @@
 import { Recipes } from "../modules/recipes.js";
 import { RecipesList } from "./recipesList.js";
+import { ReloadFilters } from "../utils/reloadFilters.js";
 
 export function Tags(tagsList) {
 
@@ -26,6 +27,7 @@ export function Tags(tagsList) {
       tagDiv.remove();
       Recipes.filterByTag(tag)
       RecipesList(Recipes.getFilteredRecipes(), "vos tags");
+      ReloadFilters(Recipes.getFilteredRecipes())
     });
 
     tagsArea.appendChild(tagDiv);

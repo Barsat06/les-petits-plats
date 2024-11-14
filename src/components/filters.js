@@ -10,8 +10,6 @@ export function Filters() {
 
   const filteredRecipes = Recipes.getFilteredRecipes();
 
-  console.log(filteredRecipes);
-
   filteredRecipes.forEach((recipe) => {
     recipe.ingredients.forEach((ingredient) => {
       ingredientsArray.push(ingredient.ingredient);

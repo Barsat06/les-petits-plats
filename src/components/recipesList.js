@@ -1,7 +1,7 @@
 import { RecipeCard } from "./recipeCard.js";
 
 export function RecipesList(recipes, inputValue) {
-  console.log("Recttes", recipes);
+  
 
   const app = document.getElementById("app");
   const recipesDOM = app.lastElementChild;
