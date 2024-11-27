@@ -2,6 +2,7 @@ import { SearchBar } from "../components/searchbar.js";
 import { Filters } from "../components/filters.js";
 import { RecipeCard } from "../components/recipeCard.js";
 import { Recipes } from "../modules/recipes.js";
+import { RecipesNumber } from "../components/recipesNumber.js";
 
 export function PageLayout(recipes) {
   Recipes.setRecipes(recipes);
@@ -29,11 +30,13 @@ export function PageLayout(recipes) {
   };
 
   const displayMain = () => {
-    /* *****************Filters***************** */
+    let FiltersAndNumber = document.createElement("div");
+    FiltersAndNumber.id = "filtersAndNumber";
+    FiltersAndNumber.className = "flex mt-5 mx-[100px] place-content-between";
 
-    app.appendChild(Filters());
-
-    /* *****************Recipes***************** */
+    app.appendChild(FiltersAndNumber);
+    FiltersAndNumber.appendChild(Filters());
+    RecipesNumber();
 
     const AllRecipes = document.createElement("div");
     AllRecipes.className =

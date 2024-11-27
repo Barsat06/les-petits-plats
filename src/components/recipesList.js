@@ -1,8 +1,6 @@
 import { RecipeCard } from "./recipeCard.js";
 
 export function RecipesList(recipes, inputValue) {
-  
-
   const app = document.getElementById("app");
   const recipesDOM = app.lastElementChild;
   recipesDOM.innerHTML = "";

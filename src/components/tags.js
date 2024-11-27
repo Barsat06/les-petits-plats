@@ -3,7 +3,6 @@ import { RecipesList } from "./recipesList.js";
 import { ReloadFilters } from "../utils/reloadFilters.js";
 
 export function Tags(tagsList) {
-
   const filtersDiv = document.getElementById("filtersDiv");
   let tagsArea = document.getElementById("tagsArea");
 
@@ -25,9 +24,9 @@ export function Tags(tagsList) {
 
     tagDiv.lastElementChild.addEventListener("click", () => {
       tagDiv.remove();
-      Recipes.filterByTag(tag)
+      Recipes.filterByTag(tag);
       RecipesList(Recipes.getFilteredRecipes(), "vos tags");
-      ReloadFilters(Recipes.getFilteredRecipes())
+      ReloadFilters(Recipes.getFilteredRecipes());
     });
 
     tagsArea.appendChild(tagDiv);

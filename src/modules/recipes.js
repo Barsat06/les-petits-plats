@@ -5,7 +5,6 @@ export class Recipes {
   static oldInput = "";
 
   static filterByInput(input) {
-    let recipesToFilter = this.#getRecipesToFilter();
     const loweredInput = input.trim().toLowerCase();
 
     if (this.oldInput.length === 0) {
@@ -14,12 +13,17 @@ export class Recipes {
     if (this.oldInput.length > loweredInput.length) {
       if (this.tagArray.length === 0) {
         this.filteredRecipes = this.originalRecipes;
+      } else {
+        this.filteredRecipes = this.originalRecipes;
+        const oldTags = this.tagArray;
+        this.tagArray = [];
+        oldTags.forEach((tag) => {
+          this.filterByTag(tag);
+        });
       }
-      recipesToFilter = this.originalRecipes;
     }
-    if (this.oldInput.length === loweredInput.length) {
-      recipesToFilter = this.originalRecipes;
-    }
+
+    const recipesToFilter = this.#getRecipesToFilter();
 
     this.oldInput = loweredInput;
     if (loweredInput.length < 3) {
@@ -78,21 +82,17 @@ export class Recipes {
   }
 
   static filterByTag(tag) {
-    let recipesToFilter = this.#getRecipesToFilter();
-
     const normalizedTag = tag.trim().toLowerCase();
 
     if (!this.tagArray.includes(normalizedTag)) {
       this.tagArray.push(normalizedTag);
     } else {
       this.tagArray = this.tagArray.filter((t) => t !== normalizedTag);
-      if (this.oldInput.length > 2) {
-        this.filterByInput(this.oldInput);
-        recipesToFilter = this.filteredRecipes;
-      } else {
-        recipesToFilter = this.originalRecipes;
-      }
+      this.filteredRecipes = this.originalRecipes;
+      this.filterByInput(this.oldInput);
     }
+
+    const recipesToFilter = this.#getRecipesToFilter();
 
     this.filteredRecipes = recipesToFilter.filter((recipe) => {
       const allElements = [

@@ -31,7 +31,7 @@ export function Filters() {
 
   const FiltersDiv = document.createElement("div");
   FiltersDiv.id = "filtersDiv";
-  FiltersDiv.className = "mt-5 mx-[100px]";
+  //FiltersDiv.className = "mt-5 mx-[100px]";
 
   const FiltersArea = document.createElement("div");
   FiltersArea.id = "filtersArea";

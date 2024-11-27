@@ -752,6 +752,10 @@ html {
   max-height: 13rem;
 }
 
+.max-h-14 {
+  max-height: 3.5rem;
+}
+
 .w-40 {
   width: 10rem;
 }
@@ -811,6 +815,10 @@ html {
 
 .flex-col {
   flex-direction: column;
+}
+
+.place-content-between {
+  place-content: space-between;
 }
 
 .items-center {
@@ -918,6 +926,11 @@ html {
   background-color: rgb(255 209 91 / var(--tw-bg-opacity));
 }
 
+.bg-blue-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(96 165 250 / var(--tw-bg-opacity));
+}
+
 .bg-\[url\(\/all_assets\/banner\.webp\)\] {
   background-image: url(/all_assets/banner.webp);
 }
@@ -995,6 +1008,10 @@ html {
   text-align: center;
 }
 
+.align-middle {
+  vertical-align: middle;
+}
+
 .font-anton {
   font-family: Anton, system-ui, sans-serif;
 }
@@ -1025,6 +1042,10 @@ html {
 
 .text-xl {
   font-size: 18px;
+}
+
+.text-\[21px\] {
+  font-size: 21px;
 }
 
 .font-bold {
@@ -1065,6 +1086,10 @@ html {
 .text-yellow {
   --tw-text-opacity: 1;
   color: rgb(255 209 91 / var(--tw-text-opacity));
+}
+
+.text-\[21p\] {
+  color: 21p;
 }
 
 .shadow-cardShadow {
