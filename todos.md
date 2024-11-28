@@ -7,5 +7,5 @@
 
 ## Features
 
-- [] indiqué sur l'UI qu'un tag est sélectionné
+- [x] indiqué sur l'UI qu'un tag est sélectionné
 - [x] afficher le nombre de recette restantes

@@ -31,7 +31,6 @@ export function Filters() {
 
   const FiltersDiv = document.createElement("div");
   FiltersDiv.id = "filtersDiv";
-  //FiltersDiv.className = "mt-5 mx-[100px]";
 
   const FiltersArea = document.createElement("div");
   FiltersArea.id = "filtersArea";
@@ -61,10 +60,27 @@ function Filter(filterName, filterData) {
 
     elementArray.forEach((element) => {
       const elementButton = document.createElement("button");
-      elementButton.className =
-        "text-left first-letter:capitalize hover:bg-yellow text-base pl-4 pr-4 pb-2 pt-2";
       elementButton.title = element;
-      elementButton.textContent = element;
+      const elementP = document.createElement("p");
+      elementP.textContent = element;
+      elementP.className = "first-letter:capitalize";
+
+      elementButton.appendChild(elementP);
+
+      const tags = Recipes.getTags();
+      const normalizedTag = element.trim().toLowerCase();
+
+      if (tags.includes(normalizedTag)) {
+        const deleteElement = document.createElement("span");
+        deleteElement.innerHTML = "<i class='fa-solid fa-circle-xmark'></i>";
+        elementButton.appendChild(deleteElement);
+
+        elementButton.className =
+          "text-left first-letter:capitalize bg-yellow text-base font-bold pl-4 pr-4 pb-2 pt-2 flex place-content-between";
+      } else {
+        elementButton.className =
+          "text-left first-letter:capitalize hover:bg-yellow text-base pl-4 pr-4 pb-2 pt-2";
+      }
 
       elementButton.addEventListener("click", () => {
         Recipes.filterByTag(element);
