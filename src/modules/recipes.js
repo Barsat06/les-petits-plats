@@ -1,5 +1,3 @@
-//Test loop
-
 export class Recipes {
   static tagArray = [];
   static originalRecipes = [];
@@ -12,6 +10,7 @@ export class Recipes {
     if (this.oldInput.length === 0) {
       this.oldInput = loweredInput;
     }
+
     if (this.oldInput.length > loweredInput.length) {
       if (this.tagArray.length === 0) {
         this.filteredRecipes = this.originalRecipes;
@@ -19,27 +18,28 @@ export class Recipes {
         this.filteredRecipes = this.originalRecipes;
         const oldTags = this.tagArray;
         this.tagArray = [];
-        oldTags.forEach((tag) => {
-          this.filterByTag(tag);
-        });
+        for (let i = 0; i < oldTags.length; i++) {
+          this.filterByTag(oldTags[i]);
+        }
       }
     }
 
     const recipesToFilter = this.#getRecipesToFilter();
 
     this.oldInput = loweredInput;
+
     if (loweredInput.length < 3) {
-      if (this.tagArray.length === 0) {
-        return this.originalRecipes;
-      } else {
-        return recipesToFilter;
-      }
+      return this.tagArray.length === 0
+        ? this.originalRecipes
+        : recipesToFilter;
     }
 
-    let filteredRecipes = [];
-    let unmatchedRecipes = [];
-    let matchingIngredientIds = [];
-    recipesToFilter.forEach((recipe) => {
+    const filteredRecipes = [];
+    const unmatchedRecipes = [];
+    const matchingIngredientIds = [];
+
+    for (let i = 0; i < recipesToFilter.length; i++) {
+      const recipe = recipesToFilter[i];
       const recipeTitle = recipe.name.toLowerCase();
 
       if (recipeTitle.includes(loweredInput)) {
@@ -47,30 +47,38 @@ export class Recipes {
       } else {
         unmatchedRecipes.push(recipe);
       }
-    });
+    }
 
-    unmatchedRecipes.forEach((recipe) => {
-      recipe.ingredients.some((ingredient) => {
-        const ingredientName = ingredient.ingredient.toLowerCase();
+    for (let i = 0; i < unmatchedRecipes.length; i++) {
+      const recipe = unmatchedRecipes[i];
+      let ingredientMatched = false;
 
-        if (ingredientName.includes(loweredInput)) {
+      for (let j = 0; j < recipe.ingredients.length; j++) {
+        const ingredient = recipe.ingredients[j].ingredient.toLowerCase();
+
+        if (ingredient.includes(loweredInput)) {
           filteredRecipes.push(recipe);
           matchingIngredientIds.push(recipe.id);
-          return true;
+          ingredientMatched = true;
+          break;
         }
-        return false;
-      });
-    });
+      }
 
-    unmatchedRecipes = unmatchedRecipes.filter(
-      (recipe) => !matchingIngredientIds.includes(recipe.id)
-    );
+      if (!ingredientMatched) {
+        unmatchedRecipes[i] = recipe;
+      }
+    }
 
-    unmatchedRecipes.forEach((recipe) => {
-      if (recipe.description.toLowerCase().includes(loweredInput)) {
+    for (let i = 0; i < unmatchedRecipes.length; i++) {
+      const recipe = unmatchedRecipes[i];
+
+      if (
+        !matchingIngredientIds.includes(recipe.id) &&
+        recipe.description.toLowerCase().includes(loweredInput)
+      ) {
         filteredRecipes.push(recipe);
       }
-    });
+    }
 
     this.filteredRecipes = filteredRecipes;
     return filteredRecipes;
